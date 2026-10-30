@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080c09">
+<title>SCOOTERS BR | Motos Elétricas</title>
+<meta name="description" content="Conheça a SCOOTERS BR. Scooters elétricas, atendimento e vendas em Santa Helena de Goiás.">
+<style>
+:root{
+  --bg:#080c09;
+  --card:#111914;
+  --green:#83ef42;
+  --white:#f5f7f4;
+  --muted:#a5b0a7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
+}
+a{text-decoration:none;color:inherit}
+header{
+  position:sticky;top:0;z-index:10;
+  background:#080c09ed;
+  border-bottom:1px solid #26332a;
+  padding:15px 6%;
+  display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(12px);
+}
+.logo{font-size:23px;font-weight:900;letter-spacing:1px}
+.logo span{color:var(--green)}
+nav{display:flex;gap:22px;align-items:center}
+nav a{font-size:13px;color:#d3dbd4}
+nav a:hover{color:var(--green)}
+.btn{
+  display:inline-block;background:var(--green);
+  color:#071006;font-weight:800;
+  padding:13px 21px;border-radius:7px;
+  transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.hero{
+  min-height:570px;padding:90px 7%;
+  display:flex;align-items:center;
+  background:
+  linear-gradient(90deg,#080c09 5%,#080c09e8 45%,#080c0980),
+  url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1800&q=85') center/cover;
+}
+.hero-content{max-width:650px}
+.tag{
+  color:var(--green);font-size:12px;
+  letter-spacing:3px;font-weight:bold;
+  margin-bottom:22px;
+}
+h1{font-size:clamp(42px,7vw,76px);line-height:1.03;margin-bottom:22px}
+h1 span{color:var(--green)}
+.hero p{color:#c0c9c1;line-height:1.8;max-width:490px;margin-bottom:30px}
+section{padding:75px 7%}
+.section-head{text-align:center;margin-bottom:40px}
+.section-head small{color:var(--green);letter-spacing:3px;font-weight:bold}
+.section-head h2{font-size:35px;margin:12px 0}
+.section-head p{color:var(--muted);line-height:1.7}
+.products{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
+}
+.product{
+  background:var(--card);border:1px solid #26352a;
+  border-radius:13px;overflow:hidden;transition:.25s;
+}
+.product:hover{transform:translateY(-5px);border-color:var(--green)}
+.product-image{
+  height:210px;background:linear-gradient(135deg,#1d2b20,#101612);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--green);font-size:65px;
+}
+.product-image img{width:100%;height:100%;object-fit:cover}
+.product-info{padding:21px}
+.product-info h3{font-size:21px;margin-bottom:9px}
+.product-info p{color:var(--muted);font-size:14px;line-height:1.6;min-height:45px}
+.price{font-size:23px;color:var(--green);font-weight:900;margin:17px 0}
+.product-info .btn{display:block;text-align:center}
+.note{font-size:12px;color:var(--muted);margin-top:12px}
+.steps{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:20px;margin-top:35px
+}
+.step{
+  background:var(--card);border:1px solid #26352a;
+  padding:26px;border-radius:12px
+}
+.step .number{font-size:28px;color:var(--green);font-weight:900}
+.step h3{margin:14px 0 9px}
+.step p{color:var(--muted);line-height:1.7;font-size:14px}
+.video-box{
+  background:#111914;border:1px dashed #536454;
+  padding:45px 20px;text-align:center;border-radius:14px;
+  color:var(--muted);line-height:1.8
+}
+.video-box strong{display:block;color:var(--green);font-size:22px;margin-bottom:10px}
+.reviews{
+  background:#101711;border-radius:14px;padding:35px;
+  text-align:center
+}
+.stars{color:var(--green);font-size:27px;margin:15px}
+.map{
+  background:var(--card);border:1px solid #26352a;
+  border-radius:13px;padding:28px;line-height:1.8
+}
+.map strong{color:var(--green)}
+footer{
+  padding:35px 7%;border-top:1px solid #26332a;
+  color:var(--muted);text-align:center;line-height:2
+}
+footer b{color:var(--green)}
+.whatsapp{
+  position:fixed;right:20px;bottom:20px;z-index:20;
+  background:#20c968;color:white;font-weight:bold;
+  padding:15px 19px;border-radius:50px;
+  box-shadow:0 5px 25px #0008;
+}
+@media(max-width:650px){
+  header{padding:15px 5%}
+  nav{gap:10px}
+  nav a:not(.btn){display:none}
+  nav .btn{padding:10px 13px;font-size:12px}
+  .hero{min-height:520px;padding:70px 6%}
+  section{padding:60px 6%}
+  .section-head h2{font-size:29px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">SCOOTERS <span>BR</span></a>
+  <nav>
+    <a href="#modelos">Modelos</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a href="#localizacao">Localização</a>
+    <a class="btn" href="#contato">Fale conosco</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-content">
+    <div class="tag">MOBILIDADE ELÉTRICA</div>
+    <h1>SUA LIBERDADE.<br><span>SEU PRÓXIMO</span><br>CAMINHO.</h1>
+    <p>Descubra uma nova maneira de se movimentar. Conheça nossas scooters elétricas e encontre o modelo ideal para você.</p>
+    <a href="#modelos" class="btn">CONHECER MODELOS →</a>
+  </div>
+</section>
+
+<section id="modelos">
+  <div class="section-head">
+    <small>NOSSO CATÁLOGO</small>
+    <h2>ENCONTRE SUA SCOOTER</h2>
+    <p>Confira nossos modelos e solicite informações diretamente com a loja.</p>
+  </div>
+
+  <div class="products" id="product-list">
+    <article class="product">
+      <div class="product-image">🛵</div>
+      <div class="product-info">
+        <h3>Modelo Scooter 01</h3>
+        <p>Consulte as características, cores e disponibilidade deste modelo.</p>
+        <div class="price">Consulte o preço</div>
+        <a class="btn" href="#contato">SOLICITAR ORÇAMENTO</a>
+        <div class="note">Foto e informações ilustrativas.</div>
+      </div>
+    </article>
+    <article class="product">
+      <div class="product-image">🛵</div>
+      <div class="product-info">
+        <h3>Modelo Scooter 02</h3>
+        <p>Conheça as opções disponíveis e tire suas dúvidas com nossa equipe.</p>
+        <div class="price">Consulte o preço</div>
+        <a class="btn" href="#contato">SOLICITAR ORÇAMENTO</a>
+        <div class="note">Foto e informações ilustrativas.</div>
+      </div>
+    </article>
+    <article class="product">
+      <div class="product-image">🛵</div>
+      <div class="product-info">
+        <h3>Modelo Scooter 03</h3>
+        <p>Peça informações sobre este modelo e consulte as condições de venda.</p>
+        <div class="price">Consulte o preço</div>
+        <a class="btn" href="#contato">SOLICITAR ORÇAMENTO</a>
+        <div class="note">Foto e informações ilustrativas.</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="como-funciona">
+  <div class="section-head">
+    <small>É SIMPLES</small>
+    <h2>COMO FUNCIONA?</h2>
+    <p>Comprar sua scooter com a SCOOTERS BR é fácil.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="number">01</div>
+      <h3>Escolha seu modelo</h3>
+      <p>Explore nosso catálogo e encontre a scooter que combina com você.</p>
+    </div>
+    <div class="step">
+      <div class="number">02</div>
+      <h3>Fale com a equipe</h3>
+      <p>Entre em contato pelo WhatsApp para consultar preço e disponibilidade.</p>
+    </div>
+    <div class="step">
+      <div class="number">03</div>
+      <h3>Combine a compra</h3>
+      <p>Confirme as condições, pagamento e documentação com nossa equipe.</p>
+    </div>
+    <div class="step">
+      <div class="number">04</div>
+      <h3>Receba sua scooter</h3>
+      <p>Combine a retirada na loja ou consulte as condições de entrega.</p>
+    </div>
+  </div>
+</section>
+
+<section id="videos">
+  <div class="section-head">
+    <small>VEJA DE PERTO</small>
+    <h2>VÍDEOS E DEMONSTRAÇÕES</h2>
+    <p>Conheça os detalhes das nossas scooters em vídeo.</p>
+  </div>
+  <div class="video-box">
+    <strong>▶ VÍDEOS SCOOTERS BR</strong>
+    Em breve, demonstrações, testes e novidades da loja.
+  </div>
+</section>
+
+<section id="avaliacoes">
+  <div class="section-head">
+    <small>EXPERIÊNCIA DOS CLIENTES</small>
+    <h2>AVALIAÇÕES</h2>
+  </div>
+  <div class="reviews">
+    <div class="stars">★★★★★</div>
+    <h3>Sua opinião é importante!</h3>
+    <p style="color:#a5b0a7;margin:12px 0 22px">
+      Em breve você poderá avaliar sua experiência com a SCOOTERS BR.
+    </p>
+    <a href="#contato" class="btn">FALE COM A LOJA</a>
+  </div>
+</section>
+
+<section id="localizacao">
+  <div class="section-head">
+    <small>VENHA NOS VISITAR</small>
+    <h2>ONDE ESTAMOS</h2>
+  </div>
+  <div class="map">
+    <strong>📍 SCOOTERS BR</strong>
+    <p>Rua Eduvaldo Veloso do Carmo, 979, S-C2, Centro.</p>
+    <p>Santa Helena de Goiás — GO</p>
+    <br>
+    <a class="btn" target="_blank" rel="noopener"
+    href="https://www.google.com/maps/search/?api=1&query=Rua+Eduvaldo+Veloso+do+Carmo+979+Centro+Santa+Helena+de+Goias+GO">
+    ABRIR ROTA NO GOOGLE MAPS →
+    </a>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="section-head">
+    <small>ATENDIMENTO</small>
+    <h2>VAMOS CONVERSAR?</h2>
+    <p>Quer saber mais sobre nossas scooters? Nossa equipe está pronta para atender você.</p>
+  </div>
+  <div style="text-align:center">
+    <a href="#" class="btn" id="contact-button">FALAR PELO WHATSAPP</a>
+    <p style="color:#a5b0a7;margin-top:15px;font-size:13px">
+      Atendimento em Santa Helena de Goiás.
+    </p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="logo">SCOOTERS <span>BR</span></div>
+  <p>MOTOS ELÉTRICAS</p>
+  <p>Santa Helena de Goiás — GO</p>
+  <p>© 2026 SCOOTERS BR. Todos os direitos reservados.</p>
+</footer>
+
+<a href="#contato" class="whatsapp">WhatsApp</a>
+
+<script>
+// CONFIGURAÇÃO DO WHATSAPP
+// Substitua pelo número da loja com DDI e DDD.
+// Exemplo: 5516999999999
+const WHATSAPP_NUMBER = "";
+
+function openWhatsApp(){
+  if(!/^55\d{10,11}$/.test(WHATSAPP_NUMBER)){
+    alert("O WhatsApp da loja ainda precisa ser configurado.");
+    return;
+  }
+  const message = encodeURIComponent(
+    "Olá! Conheci a SCOOTERS BR pelo site e gostaria de informações sobre as scooters."
+  );
+  window.open(
+    "https://wa.me/"+WHATSAPP_NUMBER+"?text="+message,
+    "_blank"
+  );
+}
+
+document.getElementById("contact-button").addEventListener("click",function(e){
+  e.preventDefault();
+  openWhatsApp();
+});
+
+document.querySelector(".whatsapp").addEventListener("click",function(e){
+  e.preventDefault();
+  openWhatsApp();
+});
+</script>
+</body>
+</html>
