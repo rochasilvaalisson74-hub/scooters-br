@@ -23,12 +23,15 @@ body{
 }
 header{
   padding:18px 6%;display:flex;justify-content:space-between;
-  align-items:center;background:#09140d;
+  align-items:center;gap:12px;background:#09140d;
   border-bottom:1px solid #1d3827;
   position:sticky;top:0;z-index:5;
 }
 .brand-logo{
   width:150px;height:55px;object-fit:contain;display:block;
+}
+.header-contacts{
+  display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;
 }
 a{color:inherit;text-decoration:none}
 button,.btn{
@@ -72,9 +75,24 @@ section{padding:55px 7%}
 .product h3{margin:0 0 9px}
 .product p{color:var(--muted);line-height:1.5}
 .price{font-size:21px;color:var(--green);font-weight:bold;margin:15px 0}
-.product button{width:100%}
+.product-contacts{
+  display:grid;gap:9px;margin-top:15px;
+}
+.product-contacts a{
+  width:100%;text-align:center;
+  border-radius:10px;padding:13px 10px;
+  font-size:13px;font-weight:bold;
+  background:var(--green);color:#061009;
+}
+.product-contacts a.leandro{
+  background:#203329;color:white;
+  border:1px solid #3b6549;
+}
 .info{
   background:#0d1911;border-radius:16px;padding:25px;line-height:1.8;
+}
+.contact-links{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:15px;
 }
 footer{
   text-align:center;padding:30px;color:var(--muted);
@@ -105,8 +123,10 @@ label{font-size:13px;color:#c5d5ca;display:block}
 .notice{color:#b8cbbd;font-size:13px;line-height:1.5}
 #status{padding:10px 0;color:var(--green);overflow-wrap:anywhere}
 @media(max-width:600px){
-  header{padding:15px 5%}
-  .brand-logo{width:125px;height:46px}
+  header{padding:12px 5%;align-items:center}
+  .brand-logo{width:105px;height:44px}
+  .header-contacts{gap:6px}
+  .header-contacts .btn{font-size:11px;padding:10px 9px}
   .hero{padding:55px 6%;min-height:400px}
   .hero-brand{width:min(300px,95%);max-height:145px}
   section{padding:40px 6%}
@@ -119,7 +139,11 @@ label{font-size:13px;color:#c5d5ca;display:block}
   <img class="brand-logo"
     src="https://raw.githubusercontent.com/rochasilvaalisson74-hub/scooters-br/main/IMG-20261029-WA0031%281%29.jpg"
     alt="SCOOTERS BR - Mobilidade Elétrica">
-  <a class="btn" href="https://wa.me/556492371321" target="_blank" rel="noopener">WhatsApp</a>
+
+  <div class="header-contacts">
+    <a class="btn" href="https://wa.me/556492371321" target="_blank" rel="noopener">GIOVANA</a>
+    <a class="btn" href="https://wa.me/556492230119" target="_blank" rel="noopener">LEANDRO</a>
+  </div>
 </header>
 
 <main>
@@ -142,9 +166,19 @@ label{font-size:13px;color:#c5d5ca;display:block}
   <section>
     <h2 class="section-title">Sobre a <span>SCOOTERS BR</span></h2>
     <div class="info">
-      <strong>Atendimento: Giovana Arantes</strong><br>
-      Trabalhamos com mobilidade elétrica e atendimento direto pelo WhatsApp.
-      <br><br>
+      <strong>Atendimento: Giovana Arantes e Leandro</strong><br>
+      Nossa equipe está pronta para atender você, tirar dúvidas e apresentar nossos produtos de mobilidade elétrica.
+
+      <div class="contact-links">
+        <a class="btn" href="https://wa.me/556492371321" target="_blank" rel="noopener">
+          FALAR COM GIOVANA
+        </a>
+        <a class="btn" href="https://wa.me/556492230119" target="_blank" rel="noopener">
+          FALAR COM LEANDRO
+        </a>
+      </div>
+
+      <br>
       <strong>Retirada e entrega:</strong> consulte as condições com nossa equipe.
     </div>
   </section>
@@ -234,6 +268,9 @@ const SUPABASE_URL = "https://nrosdrxscumgpvuwtlpt.supabase.co";
 const SUPABASE_KEY = "sb_publishable_mLdquikjvk8en02YBj25fw_wJXKvams";
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+const WHATSAPP_GIOVANA = "556492371321";
+const WHATSAPP_LEANDRO = "556492230119";
+
 let currentUser = null;
 let isAdmin = false;
 let currentImageUrl = "";
@@ -271,6 +308,7 @@ async function loadProducts(){
     box.innerHTML = "<p>Não foi possível carregar os produtos. Consulte nossa equipe pelo WhatsApp.</p>";
     return;
   }
+
   if(!data || data.length === 0){
     box.innerHTML = "<p>Em breve, novos produtos estarão disponíveis. Consulte nossa equipe pelo WhatsApp.</p>";
     return;
@@ -279,6 +317,9 @@ async function loadProducts(){
   box.innerHTML = data.map((p,i) => {
     const image = safeMediaUrl(p.imagem_url);
     const video = safeMediaUrl(p.video_url);
+    const message = encodeURIComponent("Olá! Tenho interesse no produto: " + p.nome);
+    const messageLink = "?text=" + message;
+
     return `
       <article class="product">
         ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(p.nome)}" loading="lazy">` : ""}
@@ -288,18 +329,21 @@ async function loadProducts(){
           <p>${escapeHtml(p.descricao || "")}</p>
           <div class="price">${money(p.preco)}</div>
           <p>Consulte a disponibilidade com nossa equipe.</p>
-          <button type="button" class="whatsapp-product" data-index="${i}">CONSULTAR NO WHATSAPP</button>
+
+          <div class="product-contacts">
+            <a href="https://wa.me/${WHATSAPP_GIOVANA}${messageLink}"
+               target="_blank" rel="noopener">
+              FALAR COM GIOVANA
+            </a>
+            <a class="leandro"
+               href="https://wa.me/${WHATSAPP_LEANDRO}${messageLink}"
+               target="_blank" rel="noopener">
+              FALAR COM LEANDRO
+            </a>
+          </div>
         </div>
       </article>`;
   }).join("");
-
-  box.querySelectorAll(".whatsapp-product").forEach(button => {
-    button.addEventListener("click", () => {
-      const product = data[Number(button.dataset.index)];
-      const message = encodeURIComponent("Olá! Tenho interesse no produto: " + product.nome);
-      window.open("https://wa.me/556492371321?text=" + message,"_blank");
-    });
-  });
 }
 
 async function login(){
@@ -311,6 +355,7 @@ async function login(){
     alert("Digite seu e-mail e sua senha.");
     return;
   }
+
   status.textContent = "Verificando acesso...";
   const {data,error} = await db.auth.signInWithPassword({email,password});
 
@@ -354,6 +399,7 @@ async function uploadMedia(file,folder){
     if(!file.type.startsWith("video/")) throw new Error("Escolha um arquivo de vídeo válido.");
     if(file.size > 50 * 1024 * 1024) throw new Error("O vídeo ultrapassa o limite de 50 MB.");
   }
+
   if(folder === "fotos"){
     if(!file.type.startsWith("image/")) throw new Error("Escolha uma imagem válida.");
     if(file.size > 50 * 1024 * 1024) throw new Error("A imagem ultrapassa o limite de 50 MB.");
@@ -361,11 +407,13 @@ async function uploadMedia(file,folder){
 
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
   const path = currentUser.id + "/" + folder + "/" + Date.now() + "-" + safeName;
+
   const {error} = await db.storage.from("produtos").upload(path,file,{
     upsert:false,contentType:file.type
   });
 
   if(error) throw new Error("Erro no envio do arquivo: " + error.message);
+
   const {data} = db.storage.from("produtos").getPublicUrl(path);
   return data.publicUrl;
 }
@@ -391,12 +439,14 @@ async function saveProduct(){
   if(!nome){status.textContent = "Digite o nome do produto.";return;}
   if(!Number.isFinite(preco) || preco < 0){status.textContent = "Digite um preço válido.";return;}
   if(!Number.isInteger(estoque) || estoque < 0){status.textContent = "Digite uma quantidade válida no estoque.";return;}
+
   if(videoFile && videoLink){
     status.textContent = "Escolha um vídeo da galeria ou use um link, não os dois ao mesmo tempo.";
     return;
   }
 
   saveButton.disabled = true;
+
   try{
     status.textContent = "Preparando cadastro...";
     let imagem_url = currentImageUrl;
@@ -406,6 +456,7 @@ async function saveProduct(){
       status.textContent = "Enviando foto...";
       imagem_url = await uploadMedia(photoFile,"fotos");
     }
+
     if(videoFile){
       status.textContent = "Enviando vídeo. Aguarde e não feche a página...";
       video_url = await uploadMedia(videoFile,"videos");
@@ -424,12 +475,14 @@ async function saveProduct(){
     }else{
       result = await db.from("produtos").insert(product);
     }
+
     if(result.error) throw new Error(result.error.message);
 
     status.textContent = "Produto salvo com sucesso!";
     clearForm();
     await loadAdminProducts();
     await loadProducts();
+
   }catch(error){
     status.textContent = error.message || "Não foi possível salvar o produto.";
   }finally{
@@ -439,12 +492,20 @@ async function saveProduct(){
 
 async function loadAdminProducts(){
   if(!isAdmin) return;
+
   const box = document.getElementById("adminProducts");
   const {data,error} = await db.from("produtos")
     .select("*").order("created_at",{ascending:false});
 
-  if(error){box.textContent = "Erro ao carregar produtos: " + error.message;return;}
-  if(!data || !data.length){box.textContent = "Nenhum produto cadastrado ainda.";return;}
+  if(error){
+    box.textContent = "Erro ao carregar produtos: " + error.message;
+    return;
+  }
+
+  if(!data || !data.length){
+    box.textContent = "Nenhum produto cadastrado ainda.";
+    return;
+  }
 
   box.innerHTML = data.map(p => `
     <div class="admin-product">
@@ -461,8 +522,13 @@ async function loadAdminProducts(){
 
 async function editProduct(id){
   if(!isAdmin) return;
+
   const {data,error} = await db.from("produtos").select("*").eq("id",id).single();
-  if(error || !data){alert("Não foi possível abrir esse produto.");return;}
+
+  if(error || !data){
+    alert("Não foi possível abrir esse produto.");
+    return;
+  }
 
   document.getElementById("productId").value = data.id;
   document.getElementById("name").value = data.nome || "";
@@ -479,16 +545,20 @@ async function editProduct(id){
 
   document.getElementById("status").textContent =
     "Editando: " + data.nome + ". Se escolher uma nova foto ou vídeo, o arquivo anterior será substituído no cadastro.";
+
   document.getElementById("administracao").scrollIntoView({behavior:"smooth"});
 }
 
 async function toggleProduct(id,active){
   if(!isAdmin) return;
+
   const {error} = await db.from("produtos").update({ativo:active}).eq("id",id);
+
   if(error){
     document.getElementById("status").textContent = "Erro: " + error.message;
     return;
   }
+
   await loadAdminProducts();
   await loadProducts();
 }
@@ -503,14 +573,17 @@ function clearForm(){
   document.getElementById("photo").value = "";
   document.getElementById("videoFile").value = "";
   document.getElementById("active").checked = true;
+
   currentImageUrl = "";
   currentVideoUrl = "";
 }
 
 async function restoreSession(){
   const {data} = await db.auth.getSession();
+
   if(data.session){
     currentUser = data.session.user;
+
     const {data:profile} = await db.from("perfis")
       .select("nome,tipo").eq("id",currentUser.id).maybeSingle();
 
