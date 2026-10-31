@@ -27,7 +27,9 @@ header{
   border-bottom:1px solid #1d3827;
   position:sticky;top:0;z-index:5;
 }
-.logo{font-size:24px;font-weight:900;color:var(--green)}
+.brand-logo{
+  width:150px;height:55px;object-fit:contain;display:block;
+}
 a{color:inherit;text-decoration:none}
 button,.btn{
   border:0;border-radius:10px;padding:13px 17px;
@@ -37,9 +39,13 @@ button,.btn{
 button.secondary{background:#203329;color:white}
 button:disabled{opacity:.5;cursor:not-allowed}
 .hero{
-  padding:75px 7%;min-height:390px;display:flex;align-items:center;
+  padding:75px 7%;min-height:430px;display:flex;align-items:center;
   background:linear-gradient(90deg,#061009 10%,#061009d9 55%,#06100966),
   url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1600&q=85') center/cover;
+}
+.hero-brand{
+  width:min(360px,90%);max-height:170px;object-fit:contain;
+  display:block;margin-bottom:22px;border-radius:12px;
 }
 .hero h1{font-size:clamp(38px,7vw,65px);margin:0 0 15px}
 .hero h1 span{color:var(--green)}
@@ -98,26 +104,30 @@ label{font-size:13px;color:#c5d5ca;display:block}
 }
 .notice{color:#b8cbbd;font-size:13px;line-height:1.5}
 #status{padding:10px 0;color:var(--green);overflow-wrap:anywhere}
-.video-link{color:var(--green);display:inline-block;margin-top:12px}
 @media(max-width:600px){
   header{padding:15px 5%}
-  .hero{padding:55px 6%}
+  .brand-logo{width:125px;height:46px}
+  .hero{padding:55px 6%;min-height:400px}
+  .hero-brand{width:min(300px,95%);max-height:145px}
   section{padding:40px 6%}
 }
 </style>
 </head>
 
 <body>
-
 <header>
-  <div class="logo">SCOOTERS BR</div>
+  <img class="brand-logo"
+    src="https://raw.githubusercontent.com/rochasilvaalisson74-hub/scooters-br/main/IMG-20261029-WA0031%281%29.jpg"
+    alt="SCOOTERS BR - Mobilidade Elétrica">
   <a class="btn" href="https://wa.me/556492371321" target="_blank" rel="noopener">WhatsApp</a>
 </header>
 
 <main>
-
   <div class="hero">
     <div>
+      <img class="hero-brand"
+        src="https://raw.githubusercontent.com/rochasilvaalisson74-hub/scooters-br/main/IMG-20261029-WA0031%281%29.jpg"
+        alt="Logo oficial SCOOTERS BR">
       <h1>Sua liberdade<br>em <span>movimento.</span></h1>
       <p>Conheça as opções de mobilidade elétrica da SCOOTERS BR. Consulte modelos, preços e condições diretamente com nossa equipe.</p>
       <a class="btn" href="#catalogo">VER CATÁLOGO</a>
@@ -126,9 +136,7 @@ label{font-size:13px;color:#c5d5ca;display:block}
 
   <section id="catalogo">
     <h2 class="section-title">Nossos <span>produtos</span></h2>
-    <div id="products" class="products">
-      <p>Carregando catálogo...</p>
-    </div>
+    <div id="products" class="products"><p>Carregando catálogo...</p></div>
   </section>
 
   <section>
@@ -149,8 +157,7 @@ label{font-size:13px;color:#c5d5ca;display:block}
       <br><br>
       <a class="btn" target="_blank" rel="noopener"
       href="https://www.google.com/maps/search/?api=1&query=Rua+Eduvaldo+Veloso+do+Carmo+979+Centro+Santa+Helena+de+Goias+GO">
-      COMO CHEGAR
-      </a>
+      COMO CHEGAR</a>
     </div>
   </section>
 
@@ -162,22 +169,18 @@ label{font-size:13px;color:#c5d5ca;display:block}
       <div id="loginArea">
         <label>E-mail administrativo</label>
         <input id="email" type="email" placeholder="Seu e-mail de acesso">
-
         <label>Senha</label>
         <input id="password" type="password" placeholder="Sua senha">
-
         <button type="button" onclick="login()">ENTRAR NO PAINEL</button>
       </div>
 
       <div id="adminArea">
         <h3>Painel de produtos</h3>
         <p class="notice">Cadastre ou edite os produtos que aparecem no catálogo público.</p>
-
         <input id="productId" type="hidden">
 
         <label>Nome do produto</label>
         <input id="name" placeholder="Ex.: Scooter elétrica">
-
         <label>Descrição</label>
         <textarea id="description" placeholder="Descrição do produto"></textarea>
 
@@ -194,11 +197,9 @@ label{font-size:13px;color:#c5d5ca;display:block}
 
         <label>Foto do produto</label>
         <input id="photo" type="file" accept="image/*">
-
         <label>Vídeo do produto — escolha na galeria</label>
         <input id="videoFile" type="file" accept="video/mp4,video/webm,video/quicktime">
         <p class="notice">Envie preferencialmente MP4. Limite de 50 MB por arquivo. O vídeo será exibido na página do produto.</p>
-
         <label>Ou link de vídeo (opcional)</label>
         <input id="video" type="url" placeholder="https://...">
 
@@ -208,19 +209,16 @@ label{font-size:13px;color:#c5d5ca;display:block}
         </label>
 
         <br><br>
-
         <button type="button" onclick="saveProduct()">SALVAR PRODUTO</button>
         <button type="button" class="secondary" onclick="clearForm()">LIMPAR</button>
         <button type="button" class="secondary" onclick="logout()">SAIR</button>
 
         <div id="status"></div>
-
         <h3>Produtos cadastrados</h3>
         <div id="adminProducts"></div>
       </div>
     </div>
   </section>
-
 </main>
 
 <footer>
@@ -234,7 +232,6 @@ label{font-size:13px;color:#c5d5ca;display:block}
 <script>
 const SUPABASE_URL = "https://nrosdrxscumgpvuwtlpt.supabase.co";
 const SUPABASE_KEY = "sb_publishable_mLdquikjvk8en02YBj25fw_wJXKvams";
-
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
@@ -246,18 +243,13 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 function money(value){
   return Number(value || 0).toLocaleString("pt-BR",{
-    style:"currency",
-    currency:"BRL"
+    style:"currency",currency:"BRL"
   });
 }
 
 function escapeHtml(value){
   return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[c]));
 }
 
@@ -265,26 +257,20 @@ function safeMediaUrl(value){
   if(!value) return "";
   try{
     const url = new URL(value);
-    if(url.protocol === "https:" || url.protocol === "http:"){
-      return url.href;
-    }
+    if(url.protocol === "https:" || url.protocol === "http:") return url.href;
   }catch(e){}
   return "";
 }
 
 async function loadProducts(){
   const box = document.getElementById("products");
-
   const {data,error} = await db.from("produtos")
-    .select("*")
-    .eq("ativo",true)
-    .order("created_at",{ascending:false});
+    .select("*").eq("ativo",true).order("created_at",{ascending:false});
 
   if(error){
     box.innerHTML = "<p>Não foi possível carregar os produtos. Consulte nossa equipe pelo WhatsApp.</p>";
     return;
   }
-
   if(!data || data.length === 0){
     box.innerHTML = "<p>Em breve, novos produtos estarão disponíveis. Consulte nossa equipe pelo WhatsApp.</p>";
     return;
@@ -293,49 +279,25 @@ async function loadProducts(){
   box.innerHTML = data.map((p,i) => {
     const image = safeMediaUrl(p.imagem_url);
     const video = safeMediaUrl(p.video_url);
-
     return `
       <article class="product">
-
-        ${image ? `
-          <img src="${escapeHtml(image)}"
-               alt="${escapeHtml(p.nome)}"
-               loading="lazy">
-        ` : ""}
-
-        ${video ? `
-          <video controls playsinline preload="metadata">
-            <source src="${escapeHtml(video)}">
-            Seu navegador não conseguiu reproduzir este vídeo.
-          </video>
-        ` : ""}
-
+        ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(p.nome)}" loading="lazy">` : ""}
+        ${video ? `<video controls playsinline preload="metadata"><source src="${escapeHtml(video)}">Seu navegador não conseguiu reproduzir este vídeo.</video>` : ""}
         <div class="product-content">
           <h3>${escapeHtml(p.nome)}</h3>
           <p>${escapeHtml(p.descricao || "")}</p>
           <div class="price">${money(p.preco)}</div>
           <p>Consulte a disponibilidade com nossa equipe.</p>
-
-          <button type="button" class="whatsapp-product" data-index="${i}">
-            CONSULTAR NO WHATSAPP
-          </button>
+          <button type="button" class="whatsapp-product" data-index="${i}">CONSULTAR NO WHATSAPP</button>
         </div>
-      </article>
-    `;
+      </article>`;
   }).join("");
 
   box.querySelectorAll(".whatsapp-product").forEach(button => {
     button.addEventListener("click", () => {
       const product = data[Number(button.dataset.index)];
-
-      const message = encodeURIComponent(
-        "Olá! Tenho interesse no produto: " + product.nome
-      );
-
-      window.open(
-        "https://wa.me/556492371321?text=" + message,
-        "_blank"
-      );
+      const message = encodeURIComponent("Olá! Tenho interesse no produto: " + product.nome);
+      window.open("https://wa.me/556492371321?text=" + message,"_blank");
     });
   });
 }
@@ -349,13 +311,8 @@ async function login(){
     alert("Digite seu e-mail e sua senha.");
     return;
   }
-
   status.textContent = "Verificando acesso...";
-
-  const {data,error} = await db.auth.signInWithPassword({
-    email,
-    password
-  });
+  const {data,error} = await db.auth.signInWithPassword({email,password});
 
   if(error){
     status.textContent = "Não foi possível entrar. Confira seu e-mail e senha.";
@@ -363,12 +320,8 @@ async function login(){
   }
 
   currentUser = data.user;
-
-  const {data:profile,error:profileError} = await db
-    .from("perfis")
-    .select("nome,tipo")
-    .eq("id",currentUser.id)
-    .single();
+  const {data:profile,error:profileError} = await db.from("perfis")
+    .select("nome,tipo").eq("id",currentUser.id).single();
 
   if(profileError || !profile || profile.tipo !== "admin"){
     await db.auth.signOut();
@@ -378,21 +331,16 @@ async function login(){
   }
 
   isAdmin = true;
-
   document.getElementById("loginArea").style.display = "none";
   document.getElementById("adminArea").style.display = "block";
-
   status.textContent = "Bem-vinda, " + profile.nome + "!";
-
   await loadAdminProducts();
 }
 
 async function logout(){
   await db.auth.signOut();
-
   currentUser = null;
   isAdmin = false;
-
   document.getElementById("adminArea").style.display = "none";
   document.getElementById("loginArea").style.display = "block";
   document.getElementById("password").value = "";
@@ -403,40 +351,22 @@ async function uploadMedia(file,folder){
   if(!file) return null;
 
   if(folder === "videos"){
-    if(!file.type.startsWith("video/")){
-      throw new Error("Escolha um arquivo de vídeo válido.");
-    }
-    if(file.size > 50 * 1024 * 1024){
-      throw new Error("O vídeo ultrapassa o limite de 50 MB.");
-    }
+    if(!file.type.startsWith("video/")) throw new Error("Escolha um arquivo de vídeo válido.");
+    if(file.size > 50 * 1024 * 1024) throw new Error("O vídeo ultrapassa o limite de 50 MB.");
   }
-
   if(folder === "fotos"){
-    if(!file.type.startsWith("image/")){
-      throw new Error("Escolha uma imagem válida.");
-    }
-    if(file.size > 50 * 1024 * 1024){
-      throw new Error("A imagem ultrapassa o limite de 50 MB.");
-    }
+    if(!file.type.startsWith("image/")) throw new Error("Escolha uma imagem válida.");
+    if(file.size > 50 * 1024 * 1024) throw new Error("A imagem ultrapassa o limite de 50 MB.");
   }
 
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-  const path = currentUser.id + "/" + folder + "/" +
-    Date.now() + "-" + safeName;
+  const path = currentUser.id + "/" + folder + "/" + Date.now() + "-" + safeName;
+  const {error} = await db.storage.from("produtos").upload(path,file,{
+    upsert:false,contentType:file.type
+  });
 
-  const {error} = await db.storage
-    .from("produtos")
-    .upload(path,file,{
-      upsert:false,
-      contentType:file.type
-    });
-
-  if(error){
-    throw new Error("Erro no envio do arquivo: " + error.message);
-  }
-
+  if(error) throw new Error("Erro no envio do arquivo: " + error.message);
   const {data} = db.storage.from("produtos").getPublicUrl(path);
-
   return data.publicUrl;
 }
 
@@ -448,7 +378,6 @@ async function saveProduct(){
 
   const status = document.getElementById("status");
   const saveButton = document.querySelector('button[onclick="saveProduct()"]');
-
   const id = document.getElementById("productId").value;
   const nome = document.getElementById("name").value.trim();
   const descricao = document.getElementById("description").value.trim();
@@ -456,35 +385,20 @@ async function saveProduct(){
   const estoque = Number(document.getElementById("stock").value);
   const videoLink = document.getElementById("video").value.trim();
   const ativo = document.getElementById("active").checked;
-
   const photoFile = document.getElementById("photo").files[0];
   const videoFile = document.getElementById("videoFile").files[0];
 
-  if(!nome){
-    status.textContent = "Digite o nome do produto.";
-    return;
-  }
-
-  if(!Number.isFinite(preco) || preco < 0){
-    status.textContent = "Digite um preço válido.";
-    return;
-  }
-
-  if(!Number.isInteger(estoque) || estoque < 0){
-    status.textContent = "Digite uma quantidade válida no estoque.";
-    return;
-  }
-
+  if(!nome){status.textContent = "Digite o nome do produto.";return;}
+  if(!Number.isFinite(preco) || preco < 0){status.textContent = "Digite um preço válido.";return;}
+  if(!Number.isInteger(estoque) || estoque < 0){status.textContent = "Digite uma quantidade válida no estoque.";return;}
   if(videoFile && videoLink){
     status.textContent = "Escolha um vídeo da galeria ou use um link, não os dois ao mesmo tempo.";
     return;
   }
 
   saveButton.disabled = true;
-
   try{
     status.textContent = "Preparando cadastro...";
-
     let imagem_url = currentImageUrl;
     let video_url = currentVideoUrl;
 
@@ -492,54 +406,30 @@ async function saveProduct(){
       status.textContent = "Enviando foto...";
       imagem_url = await uploadMedia(photoFile,"fotos");
     }
-
     if(videoFile){
       status.textContent = "Enviando vídeo. Aguarde e não feche a página...";
       video_url = await uploadMedia(videoFile,"videos");
     }else if(videoLink){
       const validLink = safeMediaUrl(videoLink);
-
-      if(!validLink){
-        throw new Error("O link do vídeo precisa começar com https:// ou http://");
-      }
-
+      if(!validLink) throw new Error("O link do vídeo precisa começar com https:// ou http://");
       video_url = validLink;
     }
 
     status.textContent = "Salvando informações do produto...";
-
-    const product = {
-      nome,
-      descricao,
-      preco,
-      estoque,
-      imagem_url,
-      video_url,
-      ativo
-    };
-
+    const product = {nome,descricao,preco,estoque,imagem_url,video_url,ativo};
     let result;
 
     if(id){
-      result = await db.from("produtos")
-        .update(product)
-        .eq("id",id);
+      result = await db.from("produtos").update(product).eq("id",id);
     }else{
-      result = await db.from("produtos")
-        .insert(product);
+      result = await db.from("produtos").insert(product);
     }
-
-    if(result.error){
-      throw new Error(result.error.message);
-    }
+    if(result.error) throw new Error(result.error.message);
 
     status.textContent = "Produto salvo com sucesso!";
-
     clearForm();
-
     await loadAdminProducts();
     await loadProducts();
-
   }catch(error){
     status.textContent = error.message || "Não foi possível salvar o produto.";
   }finally{
@@ -549,59 +439,30 @@ async function saveProduct(){
 
 async function loadAdminProducts(){
   if(!isAdmin) return;
-
   const box = document.getElementById("adminProducts");
-
   const {data,error} = await db.from("produtos")
-    .select("*")
-    .order("created_at",{ascending:false});
+    .select("*").order("created_at",{ascending:false});
 
-  if(error){
-    box.textContent = "Erro ao carregar produtos: " + error.message;
-    return;
-  }
-
-  if(!data || !data.length){
-    box.textContent = "Nenhum produto cadastrado ainda.";
-    return;
-  }
+  if(error){box.textContent = "Erro ao carregar produtos: " + error.message;return;}
+  if(!data || !data.length){box.textContent = "Nenhum produto cadastrado ainda.";return;}
 
   box.innerHTML = data.map(p => `
     <div class="admin-product">
       <div>
         <strong>${escapeHtml(p.nome)}</strong><br>
-        <small>
-          ${money(p.preco)} · Estoque: ${p.estoque}
-          · ${p.ativo ? "Visível" : "Oculto"}
-          · ${p.video_url ? "Com vídeo" : "Sem vídeo"}
-        </small>
+        <small>${money(p.preco)} · Estoque: ${p.estoque} · ${p.ativo ? "Visível" : "Oculto"} · ${p.video_url ? "Com vídeo" : "Sem vídeo"}</small>
       </div>
-
       <div>
-        <button type="button" class="secondary"
-          onclick="editProduct('${p.id}')">EDITAR</button>
-
-        <button type="button" class="secondary"
-          onclick="toggleProduct('${p.id}',${!p.ativo})">
-          ${p.ativo ? "OCULTAR" : "PUBLICAR"}
-        </button>
+        <button type="button" class="secondary" onclick="editProduct('${p.id}')">EDITAR</button>
+        <button type="button" class="secondary" onclick="toggleProduct('${p.id}',${!p.ativo})">${p.ativo ? "OCULTAR" : "PUBLICAR"}</button>
       </div>
-    </div>
-  `).join("");
+    </div>`).join("");
 }
 
 async function editProduct(id){
   if(!isAdmin) return;
-
-  const {data,error} = await db.from("produtos")
-    .select("*")
-    .eq("id",id)
-    .single();
-
-  if(error || !data){
-    alert("Não foi possível abrir esse produto.");
-    return;
-  }
+  const {data,error} = await db.from("produtos").select("*").eq("id",id).single();
+  if(error || !data){alert("Não foi possível abrir esse produto.");return;}
 
   document.getElementById("productId").value = data.id;
   document.getElementById("name").value = data.nome || "";
@@ -610,7 +471,6 @@ async function editProduct(id){
   document.getElementById("stock").value = data.estoque ?? 0;
   document.getElementById("video").value = data.video_url || "";
   document.getElementById("active").checked = !!data.ativo;
-
   document.getElementById("photo").value = "";
   document.getElementById("videoFile").value = "";
 
@@ -618,26 +478,17 @@ async function editProduct(id){
   currentVideoUrl = data.video_url || "";
 
   document.getElementById("status").textContent =
-    "Editando: " + data.nome +
-    ". Se escolher uma nova foto ou vídeo, o arquivo anterior será substituído no cadastro.";
-
-  document.getElementById("administracao")
-    .scrollIntoView({behavior:"smooth"});
+    "Editando: " + data.nome + ". Se escolher uma nova foto ou vídeo, o arquivo anterior será substituído no cadastro.";
+  document.getElementById("administracao").scrollIntoView({behavior:"smooth"});
 }
 
 async function toggleProduct(id,active){
   if(!isAdmin) return;
-
-  const {error} = await db.from("produtos")
-    .update({ativo:active})
-    .eq("id",id);
-
+  const {error} = await db.from("produtos").update({ativo:active}).eq("id",id);
   if(error){
-    document.getElementById("status").textContent =
-      "Erro: " + error.message;
+    document.getElementById("status").textContent = "Erro: " + error.message;
     return;
   }
-
   await loadAdminProducts();
   await loadProducts();
 }
@@ -652,31 +503,22 @@ function clearForm(){
   document.getElementById("photo").value = "";
   document.getElementById("videoFile").value = "";
   document.getElementById("active").checked = true;
-
   currentImageUrl = "";
   currentVideoUrl = "";
 }
 
 async function restoreSession(){
   const {data} = await db.auth.getSession();
-
   if(data.session){
     currentUser = data.session.user;
-
     const {data:profile} = await db.from("perfis")
-      .select("nome,tipo")
-      .eq("id",currentUser.id)
-      .maybeSingle();
+      .select("nome,tipo").eq("id",currentUser.id).maybeSingle();
 
     if(profile && profile.tipo === "admin"){
       isAdmin = true;
-
       document.getElementById("loginArea").style.display = "none";
       document.getElementById("adminArea").style.display = "block";
-
-      document.getElementById("status").textContent =
-        "Bem-vinda, " + profile.nome + "!";
-
+      document.getElementById("status").textContent = "Bem-vinda, " + profile.nome + "!";
       await loadAdminProducts();
     }else{
       await db.auth.signOut();
@@ -688,6 +530,5 @@ async function restoreSession(){
 loadProducts();
 restoreSession();
 </script>
-
 </body>
 </html>
